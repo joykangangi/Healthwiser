@@ -9,15 +9,14 @@ import com.squareup.moshi.JsonClass
 @Entity(tableName = "diseases")
 @JsonClass(generateAdapter = true)
 data class Disease(
-    @PrimaryKey(autoGenerate = true) val iD: Long? = null,
     @Json(name = "data_updated_at")
     val dataUpdatedAt: String,
     @Json(name = "diagnosis")
     val diagnosis: String,
     @Json(name = "facts")
     val facts: List<String>,
-    @Json(name = "id")
-    val id: Int,
+    @Json(name = "id") @PrimaryKey(autoGenerate = true)
+    val id: Int?= null,
     @Json(name = "is_active")
     val isActive: Boolean,
     @Json(name = "more")

@@ -3,12 +3,14 @@ package com.example.healthwiser.view
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -21,42 +23,48 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             HealthWiserTheme {
-                val appNavController = rememberNavController()
-                Scaffold(
-                    bottomBar = {
-                        BottomNavBar(
-                            items = listOf(
-                                BottomNavItem(
-                                    name = "Home",
-                                    route = "home",
-                                    icon = Icons.Default.Home
-                                ),
-                                BottomNavItem(
-                                    name = "Saved",
-                                    route = "saved",
-                                    icon = Icons.Default.List
-                                ),
-                                BottomNavItem(
-                                    name = "Search",
-                                    route = "search",
-                                    icon = Icons.Default.Search
-                                )
-                            ),
-                            navController = appNavController,
-                            onItemClick = {
-                                appNavController.navigate(it.route)
-                            }
-                        )
-                    }) {
-                    NavigationComponent(navController = appNavController)
-                }
+                MyApp()
             }
         }
     }
 }
 
 @Composable
-fun NavigationComponent(navController: NavHostController) {
+fun MyApp() {
+    val appNavController = rememberNavController()
+    Scaffold(
+        bottomBar = {
+            BottomNavBar(
+                items = listOf(
+                    BottomNavItem(
+                        name = "Home",
+                        route = "home",
+                        icon = Icons.Default.Home
+                    ),
+                    BottomNavItem(
+                        name = "Saved",
+                        route = "saved",
+                        icon = Icons.Default.List
+                    ),
+                    BottomNavItem(
+                        name = "Search",
+                        route = "search",
+                        icon = Icons.Default.Search
+                    )
+                ),
+                navController = appNavController,
+                onItemClick = {
+                    appNavController.navigate(it.route)
+                }
+            )
+        }) {
+        NavigationComponent(navController = appNavController, modifier = Modifier.padding(it))
+    }
+}
+
+
+@Composable
+fun NavigationComponent(navController: NavHostController, modifier:Modifier) {
     NavHost(navController = navController, startDestination = "home") {
         composable("home") {
             HomeScreen()
@@ -75,6 +83,6 @@ fun NavigationComponent(navController: NavHostController) {
 @Composable
 fun DefaultPreview() {
     HealthWiserTheme {
-
+        MyApp()
     }
 }

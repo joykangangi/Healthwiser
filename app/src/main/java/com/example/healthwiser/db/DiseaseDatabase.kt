@@ -9,7 +9,7 @@ import com.example.healthwiser.model.Disease
 import com.example.healthwiser.network.TypeConverter
 
 
-@Database(entities = [Disease::class], version = 1)
+@Database(entities = [Disease::class], version = 1, exportSchema = false)
 @TypeConverters(TypeConverter::class)
 abstract class DiseaseDatabase: RoomDatabase() {
 
