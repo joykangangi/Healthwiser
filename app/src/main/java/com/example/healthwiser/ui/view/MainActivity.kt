@@ -1,8 +1,10 @@
-package com.example.healthwiser.view
+package com.example.healthwiser.ui.view
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
@@ -17,13 +19,22 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.healthwiser.ui.theme.HealthWiserTheme
+import com.example.healthwiser.util.HealthApplication
+import com.example.healthwiser.util.Resource
+import com.example.healthwiser.viewmodel.HealthViewModel
+import com.example.healthwiser.viewmodel.HealthViewModelProviderFactory
 
 class MainActivity : ComponentActivity() {
+    val viewModel: HealthViewModel by viewModels {
+        HealthViewModelProviderFactory((application as HealthApplication).repository)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             HealthWiserTheme {
                 MyApp()
+
             }
         }
     }
@@ -58,14 +69,26 @@ fun MyApp() {
                 }
             )
         }) {
-        NavigationComponent(navController = appNavController, modifier = Modifier.padding(it))
+        NavigationComponent(
+            navHostController = appNavController,
+            modifier = Modifier.padding(it)
+        )
     }
+
 }
 
 
 @Composable
-fun NavigationComponent(navController: NavHostController, modifier:Modifier) {
-    NavHost(navController = navController, startDestination = "home") {
+fun NavigationComponent(
+    navHostController: NavHostController,
+    modifier: Modifier,
+
+) {
+    NavHost(
+        navController = navHostController,
+        startDestination = "home",
+        modifier = modifier.animateContentSize()
+    ) {
         composable("home") {
             HomeScreen()
         }
@@ -76,7 +99,6 @@ fun NavigationComponent(navController: NavHostController, modifier:Modifier) {
             SearchScreen()
         }
     }
-
 }
 
 @Preview(showBackground = true)

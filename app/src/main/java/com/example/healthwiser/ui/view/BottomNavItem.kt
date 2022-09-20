@@ -1,4 +1,4 @@
-package com.example.healthwiser.view
+package com.example.healthwiser.ui.view
 
 import androidx.compose.ui.graphics.vector.ImageVector
 
