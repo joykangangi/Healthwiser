@@ -1,4 +1,4 @@
-package com.example.healthwiser.ui.view
+package com.example.healthwiser.presentation.ui.view
 
 
 import androidx.compose.foundation.Image
@@ -13,21 +13,14 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import coil.compose.rememberAsyncImagePainter
 import com.example.healthwiser.R
-import com.example.healthwiser.model.Disease
-import com.example.healthwiser.model.HealthResponse
-import com.example.healthwiser.viewmodel.HealthViewModel
+import com.example.healthwiser.domain.model.Disease
 
 @Composable
 fun HomeScreen(diseaseList: List<Disease>) {

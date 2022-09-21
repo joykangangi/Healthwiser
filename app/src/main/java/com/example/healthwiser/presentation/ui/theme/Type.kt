@@ -1,4 +1,4 @@
-package com.example.healthwiser.ui.theme
+package com.example.healthwiser.presentation.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle

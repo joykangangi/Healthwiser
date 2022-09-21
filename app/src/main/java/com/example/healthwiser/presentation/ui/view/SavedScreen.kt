@@ -1,4 +1,4 @@
-package com.example.healthwiser.ui.view
+package com.example.healthwiser.presentation.ui.view
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,9 +10,9 @@ import androidx.compose.ui.Modifier
 
 
 @Composable
-fun SearchScreen() {
+fun SavedScreen() {
     val scrollState = rememberLazyListState()
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text(text = "Search Screen")
+        Text(text = "Saved Screen")
     }
 }

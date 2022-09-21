@@ -1,4 +1,4 @@
-package com.example.healthwiser.ui.view
+package com.example.healthwiser.presentation.ui.view
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.*

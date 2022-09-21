@@ -1,8 +1,8 @@
 package com.example.healthwiser.util
 
 import android.app.Application
-import com.example.healthwiser.db.DiseaseDatabase
-import com.example.healthwiser.viewmodel.HealthRepository
+import com.example.healthwiser.data.roomdb.DiseaseDatabase
+import com.example.healthwiser.domain.repository.HealthRepository
 
 
 /**

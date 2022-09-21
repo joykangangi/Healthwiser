@@ -1,8 +1,8 @@
-package com.example.healthwiser.db
+package com.example.healthwiser.data.roomdb
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.example.healthwiser.model.Disease
+import com.example.healthwiser.domain.model.Disease
 
 @Dao
 interface DiseaseDao {

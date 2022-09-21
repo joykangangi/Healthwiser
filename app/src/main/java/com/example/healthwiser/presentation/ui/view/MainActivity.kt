@@ -1,4 +1,4 @@
-package com.example.healthwiser.ui.view
+package com.example.healthwiser.presentation.ui.view
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -18,11 +18,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.healthwiser.ui.theme.HealthWiserTheme
+import com.example.healthwiser.presentation.ui.theme.HealthWiserTheme
 import com.example.healthwiser.util.HealthApplication
-import com.example.healthwiser.util.Resource
-import com.example.healthwiser.viewmodel.HealthViewModel
-import com.example.healthwiser.viewmodel.HealthViewModelProviderFactory
+import com.example.healthwiser.domain.repository.HealthViewModel
+import com.example.healthwiser.domain.repository.HealthViewModelProviderFactory
 
 class MainActivity : ComponentActivity() {
     val viewModel: HealthViewModel by viewModels {

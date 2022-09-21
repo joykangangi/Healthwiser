@@ -1,11 +1,10 @@
-package com.example.healthwiser.network
+package com.example.healthwiser.data.network
 
 import com.example.healthwiser.util.Constants.Companion.BASE_URL
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import retrofit2.create
 
 class RetrofitInstance {
     companion object {
@@ -21,7 +20,7 @@ class RetrofitInstance {
                 .baseUrl(BASE_URL)
                 .addConverterFactory(MoshiConverterFactory.create())
                 .client(client)
-                .build()
+                .build() //retrofit object
         }
 
         //used to make network requests

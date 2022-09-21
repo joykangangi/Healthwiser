@@ -1,4 +1,4 @@
-package com.example.healthwiser.model
+package com.example.healthwiser.domain.model
 
 
 import com.squareup.moshi.Json

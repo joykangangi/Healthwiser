@@ -61,9 +61,6 @@ dependencies {
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
 
-    //==================== Image Loading ====================
-    implementation "io.coil-kt:coil-compose:2.1.0"
-
 
     //==================== Networking ====================
     def retrofit_version = '2.9.0'

@@ -1,4 +1,4 @@
-package com.example.healthwiser.ui.theme
+package com.example.healthwiser.presentation.ui.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes

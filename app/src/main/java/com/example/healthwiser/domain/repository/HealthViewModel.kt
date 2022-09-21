@@ -1,18 +1,14 @@
-package com.example.healthwiser.viewmodel
+package com.example.healthwiser.domain.repository
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.healthwiser.model.Disease
-import com.example.healthwiser.model.HealthResponse
-import com.example.healthwiser.network.HealthApi
+import com.example.healthwiser.domain.model.Disease
+import com.example.healthwiser.domain.model.HealthResponse
 import com.example.healthwiser.util.Resource
 import kotlinx.coroutines.launch
 import retrofit2.Response
-import androidx.compose.runtime.mutableStateOf as mutableStateOf
 
 class HealthViewModel(val healthRepository: HealthRepository) : ViewModel() {
     // val diseasesListResponse: List<Disease> by mutableStateOf(listOf())
