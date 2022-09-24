@@ -1,12 +1,12 @@
-package com.example.healthwiser.data.roomdb
+package com.example.healthwiser.data.localdb
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.example.healthwiser.domain.model.Disease
-import com.example.healthwiser.data.network.TypeConverter
+import com.example.healthwiser.data.remote.dto.Disease
+import com.example.healthwiser.data.remote.TypeConverter
 
 
 @Database(entities = [Disease::class], version = 1, exportSchema = false)

@@ -1,4 +1,4 @@
-package com.example.healthwiser.data.network
+package com.example.healthwiser.data.remote
 
 import androidx.room.TypeConverter
 import com.squareup.moshi.JsonAdapter

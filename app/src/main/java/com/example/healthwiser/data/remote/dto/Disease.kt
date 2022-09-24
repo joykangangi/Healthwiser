@@ -1,10 +1,14 @@
-package com.example.healthwiser.domain.model
+package com.example.healthwiser.data.remote.dto
 
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+
+/**
+ * if an entity is from the api, then it should be in dto. But if from local, then Data layer
+ */
 
 @Entity(tableName = "diseases")
 @JsonClass(generateAdapter = true)

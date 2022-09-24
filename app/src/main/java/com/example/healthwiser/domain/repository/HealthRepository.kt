@@ -1,9 +1,9 @@
 package com.example.healthwiser.domain.repository
 
 import androidx.lifecycle.LiveData
-import com.example.healthwiser.data.roomdb.DiseaseDao
-import com.example.healthwiser.domain.model.Disease
-import com.example.healthwiser.data.network.RetrofitInstance
+import com.example.healthwiser.data.localdb.DiseaseDao
+import com.example.healthwiser.data.remote.dto.Disease
+import com.example.healthwiser.data.remote.RetrofitInstance
 
 class HealthRepository(private val diseaseDao: DiseaseDao) {
     val allDiseases: LiveData<List<Disease>> = diseaseDao.getAllDiseases()

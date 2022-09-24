@@ -20,7 +20,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.healthwiser.R
-import com.example.healthwiser.domain.model.Disease
+import com.example.healthwiser.data.remote.dto.Disease
 
 @Composable
 fun HomeScreen(diseaseList: List<Disease>) {

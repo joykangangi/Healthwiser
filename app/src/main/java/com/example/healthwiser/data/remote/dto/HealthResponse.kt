@@ -1,4 +1,4 @@
-package com.example.healthwiser.domain.model
+package com.example.healthwiser.data.remote.dto
 
 
 import com.squareup.moshi.Json

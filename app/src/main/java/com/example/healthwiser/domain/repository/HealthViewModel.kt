@@ -4,8 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.healthwiser.domain.model.Disease
-import com.example.healthwiser.domain.model.HealthResponse
+import com.example.healthwiser.data.remote.dto.Disease
+import com.example.healthwiser.data.remote.dto.HealthResponse
 import com.example.healthwiser.util.Resource
 import kotlinx.coroutines.launch
 import retrofit2.Response

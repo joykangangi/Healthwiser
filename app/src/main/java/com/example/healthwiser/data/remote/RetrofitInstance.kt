@@ -1,4 +1,4 @@
-package com.example.healthwiser.data.network
+package com.example.healthwiser.data.remote
 
 import com.example.healthwiser.util.Constants.Companion.BASE_URL
 import okhttp3.OkHttpClient
