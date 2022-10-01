@@ -1,6 +1,7 @@
 package com.example.healthwiser.data.remote
 
 import com.example.healthwiser.data.remote.dto.Disease
+import com.example.healthwiser.data.remote.dto.HealthResponse
 import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.GET
@@ -14,7 +15,7 @@ interface HealthApi {
     suspend fun generalDiseases(
         @Query("page")
         pageNumber: Int = 1
-    ): ResponseBody
+    ): Response<HealthResponse>
 
     @GET("/diseases.json")
     suspend fun searchDiseases(

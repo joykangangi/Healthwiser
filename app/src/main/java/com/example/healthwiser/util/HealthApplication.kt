@@ -2,7 +2,7 @@ package com.example.healthwiser.util
 
 import android.app.Application
 import com.example.healthwiser.data.localdb.DiseaseDatabase
-import com.example.healthwiser.domain.repository.HealthRepository
+import com.example.healthwiser.data.repository.HealthRepository
 
 
 /**

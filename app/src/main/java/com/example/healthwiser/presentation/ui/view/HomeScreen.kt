@@ -1,82 +1,78 @@
 package com.example.healthwiser.presentation.ui.view
 
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
+import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.healthwiser.R
-import com.example.healthwiser.data.remote.dto.Disease
+import com.example.healthwiser.domain.repository.HealthViewModel
+import com.example.healthwiser.util.Resource
 
+//observe the LiveData as a state in Compose
 @Composable
-fun HomeScreen(diseaseList: List<Disease>) {
-    LazyColumn {
-        itemsIndexed(items = diseaseList) { _, item ->
-            DiseaseItem(disease = item)
-        }
+fun HomeScreen(
+   // navController: NavController,
+    healthViewModel: HealthViewModel
+) {
+
+    //state
+    val diseases by healthViewModel.allDiseases.observeAsState()
+
+    //API one time call
+    LaunchedEffect(key1 = true) {
+        healthViewModel.getAllDiseases()
     }
-}
 
-@Composable
-fun DiseaseItem(disease: Disease) {
-    Card(
+    Column(
         modifier = Modifier
-            .padding(8.dp, 4.dp)
-            .fillMaxWidth()
-            .height(110.dp),
-        shape = RoundedCornerShape(8.dp),
-        elevation = 4.dp
+            .fillMaxSize()
+            .padding(16.dp),
+        horizontalAlignment = CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     ) {
-        Surface() {
-            Row(
-                Modifier
-                    .padding(4.dp)
-                    .fillMaxSize()
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.medical_icon),
-                    contentDescription = "Medical Icon",
-                    modifier = Modifier
-                        .clip(CircleShape)
-                        .fillMaxHeight()
-                        .weight(0.2f)
-                )
-                Column(
-                    verticalArrangement = Arrangement.Center,
-                    modifier = Modifier
-                        .padding(4.dp)
-                        .fillMaxHeight()
-                        .weight(0.8f),
-                ) {
-                    Text(
-                        text = disease.name,
-                        style = MaterialTheme.typography.subtitle1,
-                        fontWeight = FontWeight.Bold
-                    )
-                    Text(
-                        text = disease.dataUpdatedAt,
-                        style = MaterialTheme.typography.caption,
-                        modifier = Modifier
-                            .background(Color.LightGray)
-                            .padding(4.dp)
-                    )
+        when(diseases){
+            is Resource.Success -> {
+                LazyColumn {
+                    diseases?.data?.diseases?.size?.let {
+                        items(it) { i ->
+                            val disease = diseases!!.data?.diseases?.get(i)
+                            if (disease != null) {
+                                DiseaseItem(disease = disease)
+                            }
+                            if (i < diseases!!.data?.diseases?.size!!) {
+                                Divider(modifier = Modifier.padding(horizontal = 16.dp))
+                            }
+                        }
+                    }
                 }
-
+            }
+            is Resource.Error -> {
+                Text(
+                    "Error! Can't connect to the internet.\n" +
+                            "Check your internet connection.",
+                    color = MaterialTheme.colors.error
+                )
+            }
+            is Resource.Loading -> {
+                CircularProgressIndicator(modifier = Modifier.wrapContentWidth(CenterHorizontally))
+            }
+            null -> {
+                Text(
+                    "Error! Can't connect to the internet.\n" +
+                            "Check your internet connection.",
+                    color = MaterialTheme.colors.error
+                )
             }
         }
     }
+
 }

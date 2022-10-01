@@ -1,4 +1,4 @@
-package com.example.healthwiser.domain.repository
+package com.example.healthwiser.data.repository
 
 import androidx.lifecycle.LiveData
 import com.example.healthwiser.data.localdb.DiseaseDao
@@ -11,6 +11,6 @@ class HealthRepository(private val diseaseDao: DiseaseDao) {
     suspend fun getAllDiseases(pageNumber: Int) =
         RetrofitInstance.api.generalDiseases(pageNumber)
 
-    suspend fun searchDiseases(,searchQuery: String, pageNumber: Int) =
+    suspend fun searchDiseases(searchQuery: String, pageNumber: Int) =
         RetrofitInstance.api.searchDiseases(searchQuery, pageNumber)
 }

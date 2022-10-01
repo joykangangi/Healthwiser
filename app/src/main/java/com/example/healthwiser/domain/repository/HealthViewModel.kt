@@ -1,25 +1,25 @@
 package com.example.healthwiser.domain.repository
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.healthwiser.data.remote.dto.Disease
 import com.example.healthwiser.data.remote.dto.HealthResponse
+import com.example.healthwiser.data.repository.HealthRepository
 import com.example.healthwiser.util.Resource
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
-class HealthViewModel(val healthRepository: HealthRepository) : ViewModel() {
-    // val diseasesListResponse: List<Disease> by mutableStateOf(listOf())
-    // var errorMessage: String by mutableStateOf("")
 
+
+class HealthViewModel(val healthRepository: HealthRepository) : ViewModel() {
     val allDiseases: MutableLiveData<Resource<HealthResponse>> = MutableLiveData()
     val allDiseasePage = 1
 
+/*
+    private val _status = MutableLiveData<Resource<HealthResponse>>()
+    val status: LiveData<Resource<HealthResponse>> get() = _status*/
+
     val searchDiseases: MutableLiveData<Resource<Disease>> = MutableLiveData()
     val searchDiseasePage = 1
-
 
     init {
         getAllDiseases()
@@ -27,13 +27,14 @@ class HealthViewModel(val healthRepository: HealthRepository) : ViewModel() {
 
 
     fun getAllDiseases() = viewModelScope.launch {
-        allDiseases.postValue(Resource.Loading())
+        // Loading state in mutableLiveData
+        allDiseases.postValue(Resource.Loading(refresh = true))
         val response = healthRepository.getAllDiseases(allDiseasePage)
         allDiseases.postValue(handleHomeDiseasesResponse(response))
     }
 
     fun searchDiseases(searchQuery: String) = viewModelScope.launch {
-        searchDiseases.postValue(Resource.Loading())
+        searchDiseases.postValue(Resource.Loading(refresh = true))
         val response = healthRepository.searchDiseases(searchQuery, searchDiseasePage)
         searchDiseases.postValue(handleSearchDiseaseResponse(response))
     }

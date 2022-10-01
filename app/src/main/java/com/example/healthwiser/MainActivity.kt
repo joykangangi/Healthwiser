@@ -1,4 +1,4 @@
-package com.example.healthwiser.presentation.ui.view
+package com.example.healthwiser
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -22,25 +22,25 @@ import com.example.healthwiser.presentation.ui.theme.HealthWiserTheme
 import com.example.healthwiser.util.HealthApplication
 import com.example.healthwiser.domain.repository.HealthViewModel
 import com.example.healthwiser.domain.repository.HealthViewModelProviderFactory
+import com.example.healthwiser.presentation.ui.view.*
 
 class MainActivity : ComponentActivity() {
-    val viewModel: HealthViewModel by viewModels {
+    val viewModel: HealthViewModel by viewModels() {
         HealthViewModelProviderFactory((application as HealthApplication).repository)
-    }
+   }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             HealthWiserTheme {
-                MyApp()
-
+                MyApp(viewModel)
             }
         }
     }
 }
 
 @Composable
-fun MyApp() {
+fun MyApp(viewModel: HealthViewModel) {
     val appNavController = rememberNavController()
     Scaffold(
         bottomBar = {
@@ -70,7 +70,8 @@ fun MyApp() {
         }) {
         NavigationComponent(
             navHostController = appNavController,
-            modifier = Modifier.padding(it)
+            modifier = Modifier.padding(it),
+            healthViewModel = viewModel
         )
     }
 
@@ -81,6 +82,7 @@ fun MyApp() {
 fun NavigationComponent(
     navHostController: NavHostController,
     modifier: Modifier,
+    healthViewModel: HealthViewModel
 
 ) {
     NavHost(
@@ -89,7 +91,7 @@ fun NavigationComponent(
         modifier = modifier.animateContentSize()
     ) {
         composable("home") {
-            HomeScreen()
+            HomeScreen(healthViewModel = healthViewModel)
         }
         composable("saved") {
             SavedScreen()
@@ -104,6 +106,6 @@ fun NavigationComponent(
 @Composable
 fun DefaultPreview() {
     HealthWiserTheme {
-        MyApp()
+        //MyApp()
     }
 }

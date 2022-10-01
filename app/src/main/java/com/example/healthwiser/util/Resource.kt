@@ -8,11 +8,17 @@ package com.example.healthwiser.util
  *      c)-> help handling of the loading States
  *      d)-> data = body of response/actual response
  *      e)-> message = type of message,e.g successful or error
- *      f)-> sealed class -> abstract class that we can define which classes are allowed to inherit from this sealed class
- */
-
+*/
 sealed class Resource<T>(val data: T? = null, val message: String? = null) {
     class Success<T>(data: T): Resource<T>(data)
     class Loading<T>(data: T? = null, var refresh: Boolean): Resource<T>(data = data)
     class Error<T>(message:String,data: T? = null): Resource<T>(data,message)
 }
+
+
+/*
+enum class Resource {
+    SUCCESS,
+    LOADING,
+    ERROR
+}*/
