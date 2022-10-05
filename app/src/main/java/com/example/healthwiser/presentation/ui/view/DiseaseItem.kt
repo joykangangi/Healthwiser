@@ -2,6 +2,7 @@ package com.example.healthwiser.presentation.ui.view
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -22,12 +23,16 @@ import com.example.healthwiser.data.remote.dto.Disease
 //Todo - add onClickListener to constructor of the composable
 
 @Composable
-fun DiseaseItem(disease: Disease) {
+fun DiseaseItem(
+    disease: Disease,
+    onDiseaseClicked:()-> Unit
+){
     Card(
         modifier = Modifier
             .padding(8.dp, 4.dp)
             .fillMaxWidth()
-            .height(110.dp),
+            .height(110.dp)
+            .clickable { onDiseaseClicked() },
         shape = RoundedCornerShape(8.dp),
         elevation = 4.dp
     ) {
