@@ -20,7 +20,6 @@ import androidx.compose.ui.unit.dp
 import com.example.healthwiser.R
 import com.example.healthwiser.data.remote.dto.Disease
 
-//Todo - add onClickListener to constructor of the composable
 
 @Composable
 fun DiseaseItem(

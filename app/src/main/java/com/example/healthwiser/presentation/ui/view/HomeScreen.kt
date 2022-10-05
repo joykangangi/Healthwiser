@@ -40,16 +40,18 @@ fun HomeScreen(
         horizontalAlignment = CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        when(diseases){
+        when (diseases) {
             is Resource.Success -> {
                 LazyColumn {
                     diseases?.data?.diseases?.size?.let {
-                        items(it) { i ->
-                            val disease = diseases!!.data?.diseases?.get(i)
+                        items(it) { index ->
+                            val disease = diseases?.data?.diseases?.get(index)
                             if (disease != null) {
-                                DiseaseItem(disease = disease)
+                                DiseaseItem(disease = disease) {
+                                    navController.navigate("details/$index")
+                                }
                             }
-                            if (i < diseases!!.data?.diseases?.size!!) {
+                            if (index < diseases!!.data?.diseases?.size!!) {
                                 Divider(modifier = Modifier.padding(horizontal = 16.dp))
                             }
                         }
