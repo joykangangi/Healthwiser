@@ -91,7 +91,7 @@ fun NavigationComponent(
         modifier = modifier.animateContentSize()
     ) {
         composable("home") {
-            HomeScreen(healthViewModel = healthViewModel)
+            HomeScreen(healthViewModel = healthViewModel, navController = navHostController)
         }
         composable("saved") {
             SavedScreen()
@@ -99,13 +99,5 @@ fun NavigationComponent(
         composable("search") {
             SearchScreen()
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    HealthWiserTheme {
-        //MyApp()
     }
 }

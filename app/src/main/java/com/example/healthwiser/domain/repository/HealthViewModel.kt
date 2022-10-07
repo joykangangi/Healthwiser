@@ -57,6 +57,10 @@ class HealthViewModel(val healthRepository: HealthRepository) : ViewModel() {
         return Resource.Error(response.message())
     }
 
+    fun getDisease(diseaseIndex: Int):Disease? {
+        return allDiseases.value?.data?.diseases?.get(diseaseIndex)
+    }
+
 }
 
 class HealthViewModelProviderFactory(private val healthRepository: HealthRepository) :
