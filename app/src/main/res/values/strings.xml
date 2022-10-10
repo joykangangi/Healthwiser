@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">HealthWiser</string>
+    <string name="medical_equipment">Medical Equipment</string>
 </resources>
