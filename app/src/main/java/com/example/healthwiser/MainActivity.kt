@@ -13,16 +13,15 @@ import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.healthwiser.presentation.ui.theme.HealthWiserTheme
-import com.example.healthwiser.util.HealthApplication
 import com.example.healthwiser.domain.repository.HealthViewModel
 import com.example.healthwiser.domain.repository.HealthViewModelProviderFactory
+import com.example.healthwiser.presentation.ui.theme.HealthWiserTheme
 import com.example.healthwiser.presentation.ui.view.*
+import com.example.healthwiser.util.HealthApplication
 
 class MainActivity : ComponentActivity() {
     val viewModel: HealthViewModel by viewModels() {
@@ -92,6 +91,12 @@ fun NavigationComponent(
     ) {
         composable("home") {
             HomeScreen(healthViewModel = healthViewModel, navController = navHostController)
+        }
+        composable("details/{diseaseIndex}"){ backStackEntry ->
+        DetailsScreen(
+            diseaseIndex = backStackEntry.arguments?.getString("diseaseIndex"),
+            healthViewModel = healthViewModel
+        )
         }
         composable("saved") {
             SavedScreen()
