@@ -8,7 +8,6 @@ import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
@@ -17,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.healthwiser.domain.repository.HealthViewModel
 import com.example.healthwiser.util.Resource
+
 //Todo -> Needs proper error handling, i,e when not connected to the net
 
 //observe the LiveData as a state in Compose
@@ -30,9 +30,9 @@ fun HomeScreen(
     val diseases by healthViewModel.allDiseases.observeAsState()
 
     //API one time call
-    LaunchedEffect(key1 = true) {
+   /* LaunchedEffect(key1 = true) {
         healthViewModel.getAllDiseases()
-    }
+    }*/
 
     Column(
         modifier = Modifier
