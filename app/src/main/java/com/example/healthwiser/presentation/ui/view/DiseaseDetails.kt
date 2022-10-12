@@ -2,7 +2,6 @@ package com.example.healthwiser.presentation.ui.view
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.verticalScroll
@@ -17,6 +16,7 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
@@ -31,13 +31,6 @@ fun DetailsScreen(
     healthViewModel: HealthViewModel
 ) {
     val disease = diseaseIndex?.let { healthViewModel.getDisease(it.toInt()) }
-    val titles = listOf(
-        disease?.symptoms,
-        disease?.transmission,
-        disease?.diagnosis,
-        disease?.treatment,
-        disease?.prevention
-    )
 
     Column(
         modifier = Modifier
@@ -51,39 +44,41 @@ fun DetailsScreen(
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .padding(bottom = 16.dp)
-                .fillMaxWidth()
-                .fillMaxHeight(0.5f)
-        )
-        disease?.name?.let {
-            Text(
-                it,
-                fontWeight = FontWeight.Bold,
-                style = MaterialTheme.typography.h4
-            )
-        }
-        Text(
-            text = disease?.facts!!.joinToString(" "),
-            style = MaterialTheme.typography.subtitle1,
-            modifier = Modifier
-                .padding(top = 8.dp)
-                .padding(horizontal = 16.dp, vertical = 4.dp)
+                .size(250.dp)
         )
 
-        LazyColumn {
-            items(titles.size) { index ->
-                if (titles[index] == null)
-                    HyperlinkText(
-                        fullText = "Read More Here",
-                        linkText = "Here",
-                        hyperlink = disease.more
-                    )
-                else {
-                    titles[index]?.let { Text(text = it) }
-                    Divider(modifier = Modifier.padding(horizontal = 16.dp))
-                }
-            }
+        if (disease != null) {
+            CustomText(title = disease.name, details = disease.facts.joinToString(" "))
+            CustomText(title = "Symptoms", details = disease.symptoms)
+            CustomText(title = "Transmission", details = disease.transmission)
+            CustomText(title = "Diagnosis", details = disease.diagnosis)
+            CustomText(title = "Treatment", details = disease.treatment)
+            CustomText(title = "Prevention", details = disease.prevention)
+
+            HyperlinkText(fullText = "Read More Here", linkText = "Here", hyperlink = disease.more)
         }
     }
+}
+
+@Composable
+fun CustomText(
+    modifier: Modifier = Modifier,
+    title: String,
+    details: String?,
+    fontWeight: FontWeight = FontWeight.Normal,
+    fontStyle: TextStyle = MaterialTheme.typography.subtitle1
+) {
+    Text(
+        text = title,
+        fontWeight = FontWeight.Bold,
+        style = MaterialTheme.typography.h4
+    )
+    Divider(modifier.padding(horizontal = 4.dp))
+    Text(
+        text = details ?: "",
+        style = fontStyle,
+        fontWeight = fontWeight
+    )
 }
 
 @Composable
@@ -133,7 +128,6 @@ fun HyperlinkText(
         },
         modifier = modifier
     )
-
 }
 
 
