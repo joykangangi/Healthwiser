@@ -25,6 +25,8 @@ import androidx.compose.ui.unit.dp
 import com.example.healthwiser.R
 import com.example.healthwiser.domain.repository.HealthViewModel
 
+//Todo - broken url
+
 @Composable
 fun DetailsScreen(
     diseaseIndex: String?,
@@ -126,7 +128,7 @@ fun HyperlinkText(
                     uriHandler.openUri(stringAnnotation.item)
                 }
         },
-        modifier = modifier
+        modifier = modifier.padding(top = 5.dp)
     )
 }
 

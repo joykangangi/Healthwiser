@@ -27,7 +27,7 @@ fun HomeScreen(
 ) {
 
     //state
-    val diseases by healthViewModel.allDiseases.observeAsState()
+    val diseases by healthViewModel.allDiseases.observeAsState(initial = null)
 
     //API one time call
    /* LaunchedEffect(key1 = true) {
@@ -60,20 +60,23 @@ fun HomeScreen(
                 }
             }
             is Resource.Error -> {
-                Text(
+                diseases?.message?.let { message->
+                    Text(text = message, color = MaterialTheme.colors.error)
+                }
+                /*Text(
                     "Error! Can't connect to the internet.\n" +
                             "Check your internet connection.",
                     color = MaterialTheme.colors.error
                 )
+                 */
             }
             is Resource.Loading -> {
                 CircularProgressIndicator(modifier = Modifier.wrapContentWidth(CenterHorizontally))
             }
             null -> {
                 Text(
-                    "Error! Can't connect to the internet.\n" +
-                            "Check your internet connection.",
-                    color = MaterialTheme.colors.error
+                    "Loading.....",
+                    color = MaterialTheme.colors.onSurface
                 )
             }
         }
