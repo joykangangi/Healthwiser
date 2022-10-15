@@ -1,17 +1,19 @@
 package com.example.healthwiser.presentation.ui.view
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.ClickableText
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -24,6 +26,7 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import com.example.healthwiser.R
 import com.example.healthwiser.domain.repository.HealthViewModel
+import java.util.regex.Pattern
 
 //Todo - broken url
 
@@ -38,13 +41,15 @@ fun DetailsScreen(
         modifier = Modifier
             .fillMaxSize()
             .padding(12.dp)
-            .verticalScroll(rememberScrollState())
+            .verticalScroll(rememberScrollState()),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
             painter = painterResource(id = R.drawable.medical_equipment),
             contentDescription = stringResource(id = R.string.medical_equipment),
-            contentScale = ContentScale.Crop,
+            alignment = Alignment.Center,
             modifier = Modifier
+                .border(border = BorderStroke(2.dp, Color.Blue), shape = CircleShape)
                 .padding(bottom = 16.dp)
                 .size(250.dp)
         )
@@ -57,7 +62,7 @@ fun DetailsScreen(
             CustomText(title = "Treatment", details = disease.treatment)
             CustomText(title = "Prevention", details = disease.prevention)
 
-            HyperlinkText(fullText = "Read More Here", linkText = "Here", hyperlink = disease.more)
+            HyperlinkText(fullText = "Read More Here", linkText = "Here", hyperlink = disease.more )
         }
     }
 }
@@ -70,17 +75,20 @@ fun CustomText(
     fontWeight: FontWeight = FontWeight.Normal,
     fontStyle: TextStyle = MaterialTheme.typography.subtitle1
 ) {
-    Text(
-        text = title,
-        fontWeight = FontWeight.Bold,
-        style = MaterialTheme.typography.h4
-    )
-    Divider(modifier.padding(horizontal = 4.dp))
-    Text(
-        text = details ?: "",
-        style = fontStyle,
-        fontWeight = fontWeight
-    )
+    if (details != null) {
+        Text(
+            text = title,
+            fontWeight = FontWeight.Bold,
+            style = MaterialTheme.typography.h4
+        )
+        Divider(modifier.padding(horizontal = 4.dp))
+        Text(
+            text = details,
+            style = fontStyle,
+            fontWeight = fontWeight
+        )
+    }
+    else Text(text = "")
 }
 
 @Composable
@@ -98,6 +106,12 @@ fun HyperlinkText(
         append(fullText)
         val startIndex = fullText.indexOf(linkText)
         val endIndex = startIndex + linkText.length
+
+        val hyperlinkRegex = "\\b(https?://[-a-zA-Z\\\\d+&@#/%?=~_|!:, .;]*[-a-zA-Z\\\\d+&@#/%=~_|])"
+        val pattern = Pattern.compile(hyperlinkRegex,Pattern.CASE_INSENSITIVE)
+        val matcher = pattern.matcher(hyperlink)
+        val foundUrl = fullText.substring(matcher.start(0), matcher.end(0))
+
         addStyle(
             style = SpanStyle(
                 color = linkTextColor,
@@ -111,7 +125,7 @@ fun HyperlinkText(
 
         addStringAnnotation(
             tag = "URL",
-            annotation = hyperlink,
+            annotation = foundUrl,
             start = startIndex,
             end = endIndex
         )
@@ -123,7 +137,7 @@ fun HyperlinkText(
         text = annotatedString,
         onClick = {
             annotatedString
-                .getStringAnnotations("URL", it, it)
+                .getStringAnnotations("URL", start = it, end = it)
                 .firstOrNull()?.let { stringAnnotation ->
                     uriHandler.openUri(stringAnnotation.item)
                 }
@@ -131,6 +145,3 @@ fun HyperlinkText(
         modifier = modifier.padding(top = 5.dp)
     )
 }
-
-
-
