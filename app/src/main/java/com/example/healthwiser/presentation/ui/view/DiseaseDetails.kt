@@ -13,6 +13,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
@@ -24,11 +25,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.healthwiser.R
 import com.example.healthwiser.domain.repository.HealthViewModel
 import java.util.regex.Pattern
-
-//Todo - broken url
 
 @Composable
 fun DetailsScreen(
@@ -49,9 +49,11 @@ fun DetailsScreen(
             contentDescription = stringResource(id = R.string.medical_equipment),
             alignment = Alignment.Center,
             modifier = Modifier
+                .size(250.dp)
+                .clip(CircleShape)
                 .border(border = BorderStroke(2.dp, Color.Blue), shape = CircleShape)
                 .padding(bottom = 16.dp)
-                .size(250.dp)
+
         )
 
         if (disease != null) {
@@ -97,25 +99,28 @@ fun HyperlinkText(
     fullText: String,
     linkText: String,
     linkTextColor: Color = Color.Blue,
-    linkTextFontWeight: FontWeight = FontWeight.Medium,
+    linkTextFontWeight: FontWeight = FontWeight.Normal,
     linkTextDecoration: TextDecoration = TextDecoration.Underline,
     hyperlink: String,
-    fontSize: TextUnit = TextUnit.Unspecified
+    fontStyle: TextUnit = 24.sp
 ) {
     val annotatedString = buildAnnotatedString {
         append(fullText)
         val startIndex = fullText.indexOf(linkText)
         val endIndex = startIndex + linkText.length
 
-        val hyperlinkRegex = "\\b(https?://[-a-zA-Z\\\\d+&@#/%?=~_|!:, .;]*[-a-zA-Z\\\\d+&@#/%=~_|])"
+        val hyperlinkRegex ="\\b(https?://[-a-zA-Z\\d+&@#/%?=~_|!:, .;]*[-a-zA-Z\\d+&@#/%=~_|])"
         val pattern = Pattern.compile(hyperlinkRegex,Pattern.CASE_INSENSITIVE)
         val matcher = pattern.matcher(hyperlink)
-        val foundUrl = fullText.substring(matcher.start(0), matcher.end(0))
+        lateinit var foundUrl: String
+        if (matcher.find()) {
+            foundUrl = hyperlink.substring(matcher.start(0), matcher.end(0))
+        }
 
         addStyle(
             style = SpanStyle(
                 color = linkTextColor,
-                fontSize = fontSize,
+                fontSize =  fontStyle,
                 fontWeight = linkTextFontWeight,
                 textDecoration = linkTextDecoration,
             ),
