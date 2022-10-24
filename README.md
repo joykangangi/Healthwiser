@@ -10,3 +10,4 @@ The views to be displayed on the screens.
 
 Resources/References:
 [Using ViewModel-LiveData in Jetpack Compose](https://dev.to/mahendranv/using-viewmodel-livedata-with-jetpack-compose-31h8)
+[Remote data source](https://disease-info-api.herokuapp.com/diseases)
