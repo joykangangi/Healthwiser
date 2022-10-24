@@ -17,7 +17,6 @@ import androidx.navigation.NavController
 import com.example.healthwiser.domain.repository.HealthViewModel
 import com.example.healthwiser.util.Resource
 
-//Todo -> Needs proper error handling, i,e when not connected to the net
 
 //observe the LiveData as a state in Compose
 @Composable

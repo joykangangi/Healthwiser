@@ -23,5 +23,5 @@ interface HealthApi {
         searchQuery: String,
         @Query("page")
         pageNumber: Int = 1
-    ): Response<Disease>
+    ): Response<HealthResponse>
 }

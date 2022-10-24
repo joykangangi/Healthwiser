@@ -1,10 +1,22 @@
 package com.example.healthwiser.domain.repository
 
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.*
 import com.example.healthwiser.data.remote.dto.Disease
 import com.example.healthwiser.data.remote.dto.HealthResponse
 import com.example.healthwiser.data.repository.HealthRepository
+import com.example.healthwiser.util.Constants.Companion.SEARCH_DISEASE_TIME_DELAY
 import com.example.healthwiser.util.Resource
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
@@ -14,18 +26,13 @@ class HealthViewModel(val healthRepository: HealthRepository) : ViewModel() {
     val allDiseases: MutableLiveData<Resource<HealthResponse>> = MutableLiveData()
     val allDiseasePage = 1
 
-/*
-    private val _status = MutableLiveData<Resource<HealthResponse>>()
-    val status: LiveData<Resource<HealthResponse>> get() = _status*/
-
-    val searchDiseases: MutableLiveData<Resource<Disease>> = MutableLiveData()
+    val searchDiseases: MutableLiveData<Resource<HealthResponse>> = MutableLiveData()
     val searchDiseasePage = 1
 
     init {
         getAllDiseases()
     }
-
-
+    
     fun getAllDiseases() = viewModelScope.launch {
         // Loading state in mutableLiveData
         allDiseases.postValue(Resource.Loading(refresh = true))
@@ -48,7 +55,7 @@ class HealthViewModel(val healthRepository: HealthRepository) : ViewModel() {
         return Resource.Error(response.message())
     }
 
-    private fun handleSearchDiseaseResponse(response: Response<Disease>): Resource<Disease> {
+    private fun handleSearchDiseaseResponse(response: Response<HealthResponse>): Resource<HealthResponse> {
         if (response.isSuccessful) {
             response.body()?.let { searchResponse ->
                 return Resource.Success(searchResponse)
