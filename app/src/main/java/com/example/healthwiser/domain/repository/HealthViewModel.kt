@@ -1,25 +1,15 @@
 package com.example.healthwiser.domain.repository
 
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
-import androidx.lifecycle.*
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.example.healthwiser.data.remote.dto.Disease
 import com.example.healthwiser.data.remote.dto.HealthResponse
 import com.example.healthwiser.data.repository.HealthRepository
-import com.example.healthwiser.util.Constants.Companion.SEARCH_DISEASE_TIME_DELAY
 import com.example.healthwiser.util.Resource
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.debounce
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 import retrofit2.Response
-
 
 
 class HealthViewModel(val healthRepository: HealthRepository) : ViewModel() {
@@ -32,7 +22,7 @@ class HealthViewModel(val healthRepository: HealthRepository) : ViewModel() {
     init {
         getAllDiseases()
     }
-    
+
     fun getAllDiseases() = viewModelScope.launch {
         // Loading state in mutableLiveData
         allDiseases.postValue(Resource.Loading(refresh = true))
